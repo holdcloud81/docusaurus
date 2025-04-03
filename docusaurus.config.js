@@ -18,9 +18,9 @@ const config = {
 
   // GitHub Pages 배포 설정
   url: 'https://holdcloud.github.io',
-  baseUrl: '/docusaurus-public/',
+  baseUrl: '/docusaurus/',
   organizationName: 'holdcloud',
-  projectName: 'docusaurus-public',
+  projectName: 'docusaurus',
   trailingSlash: false,
 
   // 링크 오류 처리 설정
