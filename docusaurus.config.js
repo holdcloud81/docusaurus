@@ -77,7 +77,7 @@ const config = {
       require.resolve("docusaurus-lunr-search"),
       {
         languages: ["en", "ko"], //  다국어 검색 가능 (영어, 한국어)
-        //includeRoutes: ["/","/gloria","/guide"],  //  문서 검색 활성화
+        includeRoutes: ["/docs","/private-docs"],  //  문서 검색 활성화
         //excludeRoutes: ["/blog/"], // 
         //indexBlog: true,  //  블로그 검색 활성화
         //indexBaseUrl: true,
