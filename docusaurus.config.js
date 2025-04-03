@@ -24,6 +24,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'holdcloud', // Usually your GitHub org/user name.
   projectName: 'docusaurus-public', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
