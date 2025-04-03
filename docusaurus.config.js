@@ -76,7 +76,7 @@ const config = {
       require.resolve("docusaurus-lunr-search"),
       {
         languages: ["en", "ko"], // 지원 언어 설정
-        includeRoutes: ["/docs","/private-docs"], // 검색할 경로
+        includeRoutes: ["docs/**","private-docs/**"], // 검색할 경로
         highlightResult: true, // 검색 결과 강조
         fields: {
           title: { boost: 200 },
