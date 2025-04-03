@@ -41,58 +41,35 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: false,
-        blog: false,
+        docs: {
+          sidebarPath: './sidebars.js',
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl:
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        },
+        blog: {
+          showReadingTime: true,
+          feedOptions: {
+            type: ['rss', 'atom'],
+            xslt: true,
+          },
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl:
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // Useful options to enforce blogging best practices
+          onInlineTags: 'warn',
+          onInlineAuthors: 'warn',
+          onUntruncatedBlogPosts: 'warn',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
       }),
     ],
   ],
-  plugins: [
-    // 공개 문서 (docs/)
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'public',
-        path: 'docs',
-        routeBasePath: 'docs', // 홈에 위치
-        sidebarPath: require.resolve('./sidebars/sidebars.js'),
-      },
-    ],
-    // 내부 문서 (private/)
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'private',
-        path: 'private-docs',
-        routeBasePath: 'private',
-        sidebarPath: require.resolve('./sidebars/sidebars-private.js'),
-      },
-    ],
 
-      
-    // 로컬 검색
-    [
-      require.resolve("docusaurus-lunr-search"),
-      {
-        languages: ["en", "ko"], //  다국어 검색 가능 (영어, 한국어)
-        //includeRoutes: ["/","/gloria","/guide"],  //  문서 검색 활성화
-        //excludeRoutes: ["/blog/"], // 
-        //indexBlog: true,  //  블로그 검색 활성화
-        //indexBaseUrl: true,
-        //assetUrl: "/", //  검색 인덱스를 루트 경로에서 찾도록 설정
-        highlightResult: true, //  검색된 단어를 페이지에서 강조 표시
-        fields: {
-          title: { boost: 200 },   //  제목(title)의 중요도를 가장 높게 설정
-          content: { boost: 100 }, //  본문(content)의 중요도를 중간 정도로 설정
-          keywords: { boost: 50 }  //  키워드의 중요도를 낮게 설정
-        },
-      },
-    ],
-  ],
-
-  // 테마 설정    
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -107,18 +84,11 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'publicSidebar',
+            sidebarId: 'tutorialSidebar',
             position: 'left',
-            docsPluginId: 'public',
-            label: 'public',
+            label: 'Tutorial',
           },
-          {
-            type: 'docSidebar',
-            sidebarId: 'privateSidebar',
-            position: 'left',
-            docsPluginId: 'private',
-            label: 'private',
-          },          
+          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -133,9 +103,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'public',
-                to: 'docs/intro',
-               
+                label: 'Tutorial',
+                to: '/docs/intro',
               },
             ],
           },
@@ -158,7 +127,11 @@ const config = {
           },
           {
             title: 'More',
-            items: [              
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/facebook/docusaurus',
