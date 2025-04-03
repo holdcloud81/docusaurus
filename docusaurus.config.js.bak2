@@ -1,27 +1,40 @@
 // @ts-check
+// `@type` JSDoc annotations allow editor autocompletion and type checking
+// (when paired with `@ts-check`).
+// There are various equivalent ways to declare your Docusaurus config.
+// See: https://docusaurus.io/docs/api/docusaurus-config
+
 import {themes as prismThemes} from 'prism-react-renderer';
 
-// CI 환경 여부 확인
-const isCI = process.env.GITHUB_ACTIONS === 'true';
+// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'holdcloud',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
 
-  url: 'https://your-docusaurus-site.example.com',
+  // Set the production url of your site here
+  url: 'https://holdcloud.github.io',
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  organizationName: 'facebook',
-  projectName: 'docusaurus',
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
+  organizationName: 'holdcloud', // Usually your GitHub org/user name.
+  projectName: 'docusaurus-public', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'ko',
-    locales: ['ko'],
+    defaultLocale: 'en',
+    locales: ['en'],
   },
 
   presets: [
@@ -37,35 +50,57 @@ const config = {
       }),
     ],
   ],
-
+  
   plugins: [
-    // ✅ 공개 문서 (docs/)
+    // 공개 문서 (docs/)
     [
       '@docusaurus/plugin-content-docs',
       {
         id: 'public',
         path: 'docs',
-        routeBasePath: '/',
+        routeBasePath: 'docs', // 홈에 위치
         sidebarPath: require.resolve('./sidebars/sidebars.js'),
       },
     ],
-    // ✅ 비공개 문서 (private-docs), CI에서는 제외
-    ...(!isCI ? [
-      [
-        '@docusaurus/plugin-content-docs',
-        {
-          id: 'private',
-          path: 'private-docs',
-          routeBasePath: 'private-docs',
-          sidebarPath: require.resolve('./sidebars/sidebars-private.js'),
+    // 내부 문서 (private/) 
+    // "CI 배포 시에는 private 플러그인 제외하고 내부는 빌드시 포함한다. 
+  
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'private',
+        path: 'private-docs',
+        routeBasePath: 'private-docs',
+        sidebarPath: require.resolve('./sidebars/sidebars-private.js'),
+      },
+    ],
+
+      
+    // 로컬 검색
+    [
+      require.resolve("docusaurus-lunr-search"),
+      {
+        languages: ["en", "ko"], //  다국어 검색 가능 (영어, 한국어)
+        includeRoutes: ["/docs","/private-docs"],  //  문서 검색 활성화
+        //excludeRoutes: ["/blog/"], // 
+        //indexBlog: true,  //  블로그 검색 활성화
+        //indexBaseUrl: true,
+        //assetUrl: "/", //  검색 인덱스를 루트 경로에서 찾도록 설정
+        highlightResult: true, //  검색된 단어를 페이지에서 강조 표시
+        fields: {
+          title: { boost: 200 },   //  제목(title)의 중요도를 가장 높게 설정
+          content: { boost: 100 }, //  본문(content)의 중요도를 중간 정도로 설정
+          keywords: { boost: 50 }  //  키워드의 중요도를 낮게 설정
         },
-      ]
-    ] : []),
+      },
+    ],
   ],
 
+  // 테마 설정    
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: 'My Site',
@@ -87,8 +122,7 @@ const config = {
             position: 'left',
             docsPluginId: 'private',
             label: 'private',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          },          
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -103,8 +137,9 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/intro',
+                label: 'public',
+                to: 'docs/intro',
+               
               },
             ],
           },
@@ -127,11 +162,7 @@ const config = {
           },
           {
             title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
+            items: [              
               {
                 label: 'GitHub',
                 href: 'https://github.com/facebook/docusaurus',
