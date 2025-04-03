@@ -58,7 +58,7 @@ const config = {
         sidebarPath: require.resolve('./sidebars/sidebars.js'),
       },
     ],
-    // 비공개 문서 플러그인은 CI 환경에서는 제외
+    // 비공개 문서 플러그인은 CI 환경에서는 제외한다.
     ...(!isCI ? [
       [
         '@docusaurus/plugin-content-docs',
