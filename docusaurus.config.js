@@ -71,7 +71,7 @@ const config = {
       ]
     ] : []),
 
-    // 로컬 검색 플러그인 설정
+    // 로컬 검색 플러그인 설정 외부에서는 제외한다.
     [
       require.resolve("docusaurus-lunr-search"),
       {
