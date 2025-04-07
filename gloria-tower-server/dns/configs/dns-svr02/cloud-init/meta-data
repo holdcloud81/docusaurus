@@ -1,0 +1,7 @@
+## meta-data
+
+# id 동적생성
+instance-id: 2288a5db-1fcb-4fc1-b7fc-4c67dfc94d2e
+
+# 호스트네임 설정
+local-hostname: prod-dns-svr02

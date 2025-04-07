@@ -1,0 +1,30 @@
+#cloud-config
+# 고정 IP 네트워크 설정 
+network:
+  version: 2
+  ethernets:
+    dhcp_interface:
+      match:
+        macaddress: "52:54:00:8D:27:25"
+      dhcp4: true
+users:
+  - name: gloria                # 사용자 생성
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']  # 관리자 권한 부여
+    groups: sudo
+    shell: /bin/bash            # 사용자 기본 쉘 설정
+    lock_passwd: false          # 암호 잠금 해제
+    ssh_authorized_keys:        # SSH 공개 키 설정
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDzu0hZWrlHZY1Yyfm3fpcq6+VfxnKw/FKUAulyB+WXcTipctIGkR/+tCjw6UC7p1ahhWRTGJqwBs3I5GYipvhxEYXb2N93Sh1dTWAdEcgKk2thPqS7G0oCAUVO6k6x8UmgyuIceUnI1xk+Wm/z5Yh9pfn448Ohe+kbrCWtl+PJf6pYMIG6C9KrjYGmLc4PhgvO2Um1z0JTuW8opSFCXoLvaDaikpkGLL4DNwgxiwa3zKiIpGzvCHU9yrkifzJ+iQkYGI31MuwwAo7Ebdd9XfDihE2CfUIXQHv9kHe1VnDXEo2MpcIpwfXIU9CbMtWvrGcd1DjIEQa3hrtwNov7hNAKpi61cVBsoKdeBsrbjJ/8hvyk8xvgH62ZJhaYyCjXOGqbxPcQmGHOBxvuiRfyAi/5BZyjU9xSrOR3glYYWvkJ4mz3Su9QMPgp7od2lYmm5MGzjt4yILvD8piqY5KhCF3aD0PAS/MuPkrJPXgTWPcvFKxipWfm3ne6NH8aCZz6Tq4Dciksm9JzYq44wdYE0zRSRnUt0MAdIT48vUCPHEFG0aeP8UtXxayB12d4+0aaiN4xrBC3Bv7XGyhJRM2GcbWyincVQQpJoEEE6d14dcaHJdxvb8R42em3AfqhWqKsrvLg/DtvlybVStdSzZKM6ijv5cmg83EDzAV+3d80zO/3Mw== hangoal@gloriaAviation.com
+    passwd: $6$BuGjDjOxbp16138F$88FXWAnPYbfcqI8KUE0hEIfrLmFlmdRkCyTLyAjwisiozilPB3wB7xZmMxdgGyDu/6pncOtRwx7JK1LV7WnA21
+runcmd:
+  - timedatectl set-timezone Asia/Seoul
+  - systemctl enable sshd
+  - systemctl restart sshd
+  - sudo userdel -r ubunbu || true # 기존 템플릿에 있는 사용자 삭제
+
+write_files:
+  - path: /etc/sudoers.d/timestamp_timeout # sudo 패스워드 캐싱 시간 연장
+    content: |
+      Defaults timestamp_timeout=180 # 3 시간 캐싱
+    owner: root:root
+    permissions: '0440'
