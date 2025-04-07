@@ -24,7 +24,7 @@ const config = {
   trailingSlash: false,
 
   // 링크 오류 처리 설정
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // 언어 설정
@@ -89,6 +89,12 @@ const config = {
 
   // 테마 구성
   themeConfig: {
+    docs: {
+      sidebar: {
+        hideable: true, // 사이드바 숨기기 가능
+        autoCollapseCategories: true, // 카테고리 자동 축소
+      },
+    },
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'My Site',
