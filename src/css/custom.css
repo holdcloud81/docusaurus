@@ -40,7 +40,19 @@ body {
 /* 코드 블록 폰트 설정 */
 code, pre {
   font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95em;
+  line-height: 1.5;
+ /* white-space: pre-wrap; */
 }
+
+/* 인덱스 페이지에 제목만 표시하기 */
+
+.cardDescription_PWke {
+  display: none !important;
+}
+
+
+
 
 
 
