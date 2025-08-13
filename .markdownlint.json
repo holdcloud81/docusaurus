@@ -3,4 +3,8 @@
     "md025": false,
     "md036": false,
 
+    "MD004": {
+      "style": "dash"
+  }
+
 }
